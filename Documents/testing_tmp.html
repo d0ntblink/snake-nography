@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>testing.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="snake-nography-testing">snake-nography Testing</h1>
+<h2 id="gary-k">Gary. K</h2>
+<h3 id="4112022">4/11/2022</h3>
+<p><a href="https://github.com/d0ntblink/snake-nography">Github Link</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><em><strong>Function</strong></em></th>
+<th style="text-align:center"><em><strong>Description</strong></em></th>
+<th style="text-align:center"><em><strong>Status</strong></em></th>
+<th style="text-align:right"><em><strong>Example</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">--help function</td>
+<td style="text-align:center">Help funtion assists the user on how the program should be used</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#--help">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Argument Sanatizing</td>
+<td style="text-align:center">Wrong arguments are ignore and bad areguments are prompted</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#argument-sanatizing">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Error</td>
+<td style="text-align:center">An Error is diplayed for wrong inputs</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#argument-sanatizing">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Local files as input</td>
+<td style="text-align:center">Local files are accepted and processed</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td style="text-align:left">Encryption</td>
+<td style="text-align:center">Before embedding the image you can encrypt them witha a key</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#encryption">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Decryption</td>
+<td style="text-align:center">Same key can be used to decrypt the hidden image</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#decryption">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Library import</td>
+<td style="text-align:center">Libraries are imported properly</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td style="text-align:left">Debug mode</td>
+<td style="text-align:center">debug mode is available</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#debug">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">PNG and BMP Support</td>
+<td style="text-align:center">Multiple image options can be selected and processed</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#png-bmp">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">No obvious artifacts</td>
+<td style="text-align:center">the artifacts created by the program are not visible to the naked eye</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#no-artifacts">Example</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Small image prompt</td>
+<td style="text-align:center">If the cover image is too small, program will prompt an error</td>
+<td style="text-align:center"><em>Passed</em></td>
+<td style="text-align:right"><a href="#image-too-small">Example</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="help">--help</h3>
+<pre class="hljs"><code><div>PS C:\Users\d0ntblink\OneDrive\Projects\snake-nography\Code&gt; python .\snake-nography.py -h
+usage: snake-nography.py [-h] [-x &lt;key&gt;] [-d] (-c &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt; | -r &lt;target file&gt; &lt;output&gt;)
+
+This program hides images into other images in lossless format.
+
+options:
+  -h, --help            show this help message and exit
+  -x &lt;key&gt;, --xcrypt &lt;key&gt;
+                        Decrypts or encrypts image using a XOR formula
+  -d, --debug           Enables debug mode
+  -c &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt;, --cloak &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt;
+                        Cloaks an image in another image
+  -r &lt;target file&gt; &lt;output&gt;, --reveal &lt;target file&gt; &lt;output&gt;
+                        Reveals an image hidden by this program. the output format must match the orginal hidden file format
+</div></code></pre>
+<h3 id="argument-sanatizing">Argument Sanatizing</h3>
+<pre class="hljs"><code><div>PS C:\Users\d0ntblink\OneDrive\Projects\snake-nography\Code&gt; python .\snake-nography.py -g
+usage: snake-nography.py [-h] [-x &lt;key&gt;] [-d] (-c &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt; | -r &lt;target file&gt; &lt;output&gt;)
+snake-nography.py: error: one of the arguments -c/--cloak -r/--reveal is required
+PS C:\Users\d0ntblink\OneDrive\Projects\snake-nography\Code&gt; python .\snake-nography.py -g -c 1 2 3
+usage: snake-nography.py [-h] [-x &lt;key&gt;] [-d] (-c &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt; | -r &lt;target file&gt; &lt;output&gt;)
+snake-nography.py: error: unrecognized arguments: -g
+PS C:\Users\d0ntblink\OneDrive\Projects\snake-nography\Code&gt; python .\snake-nography.py -g -c 1 2
+usage: snake-nography.py [-h] [-x &lt;key&gt;] [-d] (-c &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt; | -r &lt;target file&gt; &lt;output&gt;)
+snake-nography.py: error: argument -c/--cloak: expected 3 **arguments**
+</div></code></pre>
+<h3 id="encryption-and-decryption">Encryption and Decryption</h3>
+<h4 id="step-1-encrypting-an-image">Step 1: Encrypting an image</h4>
+<p><strong>image I am trying to hide</strong>
+<img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Data/lena.bmp" alt="lena.bmp">
+<strong>my cover image</strong>
+<img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Data/greenland_grid_velo.bmp" alt="greenland">
+<strong>verysecretpassword as my password</strong></p>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -h
+usage: snake-nography.py [-h] [-x &lt;key&gt;] [-d] (-c &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt; | -r &lt;target file&gt; &lt;output&gt;)
+
+This program hides images into other images in lossless format.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -x &lt;key&gt;, --xcrypt &lt;key&gt;
+                        Decrypts or encrypts image using a XOR formula
+  -d, --debug           Enables debug mode
+  -c &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt;, --cloak &lt;secret image&gt; &lt;cover image&gt; &lt;output&gt;
+                        Cloaks an image in another image
+  -r &lt;target file&gt; &lt;output&gt;, --reveal &lt;target file&gt; &lt;output&gt;
+                        Reveals an image hidden by this program. the output format must match the orginal hidden file format
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -c lena.bmp greenland_grid_velo.bmp notsusimage.png -x &quot;verysecretpassword&quot;
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ gio open notsusimage.png
+
+</div></code></pre>
+<p><strong>outputimage</strong>
+<img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/ecryptiontest/notsusimage.png" alt="proof"></p>
+<h4 id="step-2-extracting-the-image">Step 2: Extracting the Image</h4>
+<p><strong>extracting the image without password</strong></p>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -r notsusimage.png nopassword.bmp
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ gio open nopassword.bmp
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ ** Message: 15:18:15.395: Could not open file 'file:///home/d0ntblink/Projects/snake-nography/Data/nopassword.bmp': Unsupported mime type
+</div></code></pre>
+<p><img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/ecryptiontest/nopassword.png" alt="proof"></p>
+<p><strong>extracting the image with the wrong password</strong></p>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -r notsusimage.png wrongpassword.bmp -x &quot;idkthepasswordbro&quot;
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ gio open wrongpassword.bmp
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ ** Message: 15:20:27.653: Could not open file 'file:///home/d0ntblink/Projects/snake-nography/Data/wrongpassword.bmp': Unsupported mime type
+^C
+</div></code></pre>
+<p><img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/ecryptiontest/wrongpassword.png" alt="proof"></p>
+<p><strong>extracting with the right password</strong></p>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -r notsusimage.png rightpassword.bmp -x verysecretpassword
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ gio rightpassword.bmp
+</div></code></pre>
+<p><img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/ecryptiontest/rightpassword.png" alt="proof"></p>
+<h3 id="no-artifacts">No Artifacts</h3>
+<p><strong>Right image is image containing another image</strong></p>
+<p><strong>Last image is the hidden image</strong></p>
+<h4 id="case-1">Case 1:</h4>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -c blackbuck.bmp sample_19201280.bmp newsample_19201280.bmp
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ compare sample_19201280.png newsample_19201280.bmp -compose src diff.png
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -r newsample_19201280.bmp case1hidden.bmp
+</div></code></pre>
+<p><img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/extras/case1/case1oldvsnew.png" alt="oldvsnew">
+<img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/case1/case1diff.png" alt="diff">
+<img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/case1/case1hidden.bmp" alt="hidden"></p>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ compare -verbose -metric PSNR newsample_19201280.bmp sample_19201280.bmp /dev/null
+newsample_19201280.bmp BMP3 1920x1280 1920x1280+0+0 8-bit sRGB 7.0313MiB 0.070u 0:00.166
+sample_19201280.bmp BMP 1920x1280 1920x1280+0+0 8-bit sRGB 7.03138MiB 0.080u 0:00.190
+Image: newsample_19201280.bmp
+  Channel distortion: PSNR
+    red: 37.1459
+    green: 32.7486
+    blue: 21.5741
+    all: 25.9156
+newsample_19201280.bmp=&gt;/dev/null BMP3 1920x1280 1920x1280+0+0 8-bit sRGB 0.480u 0:00.086
+</div></code></pre>
+<h4 id="case-2">Case 2:</h4>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -c bmp_24.bmp greenland_grid_velo.bmp newgreenland_grid_velo.bmp
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ compare greenland_grid_velo.bmp newgreenland_grid_velo.bmp -compose src diff.png
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -r newgreenland_grid_velo.bmp case2hidden.bmp
+</div></code></pre>
+<p><img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/case2/case2oldvsnew.png" alt="oldvsnew">
+<img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/case2/case2diff.png" alt="diff">
+<img src="file:///c:/Users/d0ntblink/OneDrive/Projects/snake-nography/Extras/case2/case2hidden.bmp" alt="hidden"></p>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ compare -verbose -metric PSNR newgreenland_grid_velo.bmp greenland_grid_velo.bmp /dev/null
+newgreenland_grid_velo.bmp BMP3 762x1309 762x1309+0+0 8-bit sRGB 2.8563MiB 0.030u 0:00.079
+greenland_grid_velo.bmp BMP3 762x1309 762x1309+0+0 8-bit sRGB 2.8563MiB 0.040u 0:00.077
+Image: newgreenland_grid_velo.bmp
+  Channel distortion: PSNR
+    red: 55.112
+    green: 55.2927
+    blue: 54.993
+    all: 55.1308
+newgreenland_grid_velo.bmp=&gt;/dev/null BMP3 762x1309 762x1309+0+0 8-bit sRGB 0.280u 0:00.044
+</div></code></pre>
+<h3 id="png-bmp">PNG BMP</h3>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -c bmp_24.bmp greenland_grid_velo.bmp pngout.png
+
+┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -c bmp_24.bmp greenland_grid_velo.bmp bmpout.bmp
+</div></code></pre>
+<h3 id="debug-mode">Debug Mode</h3>
+<pre class="hljs"><code><div>PS C:\Users\d0ntblink\OneDrive\Projects\snake-nography\Code&gt; python .\snake-nography.py -c ..\Data\blackbuck.bmp ..\Data\bmp_08.bmp test.png -d
+
+2022-04-11 15:26:51,831 : secret image info:
+color depth: 3
+width: 512
+height: 512
+
+
+2022-04-11 15:26:51,832 : need at least 2359458 pixels on the cover image
+
+
+2022-04-11 15:26:51,832 : cover image info:
+color depth: 3
+width: 255
+height: 255
+
+
+2022-04-11 15:26:51,832 : row count is 9253
+
+
+2022-04-11 15:26:51,833 : current row is: 0
+0 bytes have passed
+</div></code></pre>
+<h3 id="image-too-small">Image Too Small</h3>
+<pre class="hljs"><code><div>┌──(d0ntblink㉿H0rn3d0wl)-[~/Projects/snake-nography/Data]
+└─$ python3 ../Code/snake-nography.py -c bmp_24.bmp bmp_08.bmp newimage.png
+your cover image is not big enough
+</div></code></pre>
+<h2 id="live-presentation-commands">Live Presentation Commands</h2>
+<pre class="hljs"><code><div>## go to the files location
+cd /home/d0ntblink/Projects/snake-nography/Extras/livetest
+
+ls -lah
+
+## extract
+
+python3 sg.py -h
+
+python3 sg.py -c hide1.bmp cover1.bmp output1.png -x &quot;hellothisisalivetest&quot;
+
+gio open output1.png
+
+## extract with right password
+
+python3 sg.py -h
+
+python3 sg.py -r output1.png rightpassword.bmp -x &quot;hellothisisalivetest&quot;
+
+gio open rightpassword.bmp
+
+## extract with wrong password
+
+python3 sg.py -r output1.png wrongpassword.bmp -x &quot;wrongpass&quot;
+
+gio open wrongpassword.bmp
+
+### show diffrence 
+
+compare cover1.bmp output1.png -compose src diff1.png
+
+gio open diff1.png
+
+
+</div></code></pre>
+
+</body>
+</html>

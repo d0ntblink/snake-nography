@@ -1,6 +1,6 @@
-# snake-nography
+# snake-nography Intro
 ## Gary. K
-### 3/11/2022
+### 4/11/2022
 
 [Github Link](https://github.com/d0ntblink/snake-nography)
 

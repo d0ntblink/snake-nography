@@ -1,6 +1,7 @@
+#!/usr/bin/python3
 import cv2, math, logging, numpy, argparse
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description='This program hides images into other images in lossless format.')
 parser.add_argument( "-x", "--xcrypt", help='Decrypts or encrypts image using a XOR formula'
                     , metavar="<key>", required=False, default=None)
 parser.add_argument( "-d", "--debug", help='Enables debug mode', action="store_true"
@@ -9,7 +10,7 @@ req_args = parser.add_mutually_exclusive_group(required=True)
 req_args.add_argument("-c", "--cloak", help='Cloaks an image in another image'
                       , metavar=('<secret image>','<cover image>',"<output>")
                       , nargs=3)
-req_args.add_argument("-r", "--reveal", help="Reveals an image hidden by this program"
+req_args.add_argument("-r", "--reveal", help="Reveals an image hidden by this program. the output format must match the orginal hidden file format"
                       , metavar=('<target file>',"<output>")
                       , nargs=2)
 args = parser.parse_args()
@@ -31,11 +32,11 @@ def cloak(_secret_image,_new_file_name,_cover_image, _key=''):
         image_to_hide_info = cv2.imread(_secret_image)
         h_height, h_width, h_color_depth = image_to_hide_info.shape
         logging.debug(f'secret image info:\ncolor depth: {h_color_depth}\nwidth: {h_width}\nheight: {h_height}')
-        required_pixels = len(image_to_hide_data) * int(h_color_depth)
-        logging.debug(f'need at least {required_pixels} pixels on the cover image')
+        h_required_pixels = len(image_to_hide_data) * int(h_color_depth)
+        logging.debug(f'need at least {h_required_pixels} pixels on the cover image')
         c_height, c_width, c_color_depth = cover_image_data.shape
         logging.debug(f'cover image info:\ncolor depth: {c_color_depth}\nwidth: {c_width}\nheight: {c_height}')
-        row_count = math.ceil(required_pixels/c_width)
+        row_count = math.ceil(h_required_pixels/c_width)
         logging.debug(f'row count is {row_count}')
         bytes_passed_inrow = 0
         byte_count = 0
@@ -57,10 +58,10 @@ def cloak(_secret_image,_new_file_name,_cover_image, _key=''):
                         if (byte_index % 3 == 2):
                             bytes_passed_inrow += 1
                         elif (byte_index == 7):
-                            if (byte_count*3 < required_pixels):
+                            if (byte_count*3 < h_required_pixels):
                                 if (current_byte[2] % 2 == 1):
                                     current_byte[2] -= 1
-                            elif (byte_count*3 >= required_pixels):
+                            elif (byte_count*3 >= h_required_pixels):
                                 if (current_byte[2] % 2 == 0):
                                     current_byte[2] -= 1
                             bytes_passed_inrow += 1

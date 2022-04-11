@@ -1,10 +1,8 @@
-# snake-nography
+# snake-nography Design
 ## Gary. K
 ### 4/11/2022
 
 [Github Link](https://github.com/d0ntblink/snake-nography)
-
-## Design
 
 ### Initial Ideas
 
@@ -25,6 +23,10 @@ at the begining of the script the the file that needs to be hidden is read as bi
 then a new numphy array is created that has values added to it byte by byte containing data from the cover image and single bit flipped from the secret image.
 
 the numpy array is used to create a image in a lossless fromat (PNG, bmp, etc ...) using cv2 library for image processing.
+
+below is the bitmap header sections for reference:
+![ref](../Extras/bitmap_sections.png)
+
 
 ## Extracting the Image
 
